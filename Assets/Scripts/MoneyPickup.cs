@@ -13,7 +13,7 @@ namespace PlayableRunner
             if (!other.CompareTag("Player"))
                 return;
 
-            game.NotifyMoneyPickup(value);
+            game.NotifyMoneyPickup(value, transform.position);
             gameObject.SetActive(false);
         }
     }

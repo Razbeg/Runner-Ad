@@ -17,6 +17,7 @@ namespace PlayableRunner
         [SerializeField] private Transform finishLine;
         [SerializeField] private RunnerCharacter2D character;
         [SerializeField] private RunnerUI ui;
+        [SerializeField] private MoneyPickupUIFx moneyFx;
         [SerializeField] private LunaLifecycleBridge luna;
         [SerializeField] private PlayableAudioLoop audioLoop;
 
@@ -142,10 +143,13 @@ namespace PlayableRunner
         }
 
 
-        public void NotifyMoneyPickup(int amount)
+        public void NotifyMoneyPickup(int amount, Vector3 worldPos)
         {
             money += amount;
             ui.SetBalance(money);
+
+            if (moneyFx != null)
+                moneyFx.Play(worldPos);
         }
 
         public void NotifyObstacleHit()

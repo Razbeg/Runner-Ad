@@ -1476,10 +1476,6 @@
                 "excluded": true
             },
             {
-                "name": "LunaUnity.Utils.PrefabUtil",
-                "excluded": true
-            },
-            {
                 "name": "LunaUnity.Utils.TaskEnumerator",
                 "excluded": true
             },
@@ -1737,10 +1733,6 @@
             },
             {
                 "name": "UnityEngine.PropertyName",
-                "excluded": true
-            },
-            {
-                "name": "UnityEngine.Random",
                 "excluded": true
             },
             {
@@ -8849,7 +8841,7 @@
                     },
                     {
                         "name": "clip32",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "clipu32",
@@ -14111,7 +14103,7 @@
                     },
                     {
                         "name": "Sample",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "InternalSample",
@@ -14123,7 +14115,7 @@
                     },
                     {
                         "name": "Next$2",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "Next$1",
@@ -16751,7 +16743,7 @@
                     },
                     {
                         "name": "InverseTransformPoint",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "TransformPoint$1",
@@ -17269,7 +17261,7 @@
                     },
                     {
                         "name": "WorldToScreenPoint",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ScreenToWorldPoint",
@@ -17657,7 +17649,7 @@
                 "instanceMethods": [
                     {
                         "name": "Element#get",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "anchorMax#get",
@@ -17705,7 +17697,7 @@
                     },
                     {
                         "name": "anchoredPosition#set",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "sizeDelta#get",
@@ -26817,7 +26809,7 @@
                     },
                     {
                         "name": "$ctor2",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "$ctor1",
@@ -26899,7 +26891,7 @@
                     },
                     {
                         "name": "$ctor1",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ctor",
@@ -26933,7 +26925,7 @@
                     },
                     {
                         "name": "WorldToScreenPoint",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "FlipLayoutOnAxis",
@@ -26961,15 +26953,15 @@
                     },
                     {
                         "name": "ScreenPointToLocalPointInRectangle",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ScreenPointToWorldPointInRectangle",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ScreenPointToRay",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "PixelAdjustPoint",
@@ -27282,6 +27274,128 @@
                     {
                         "name": "ctor",
                         "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "LunaUnity.Utils.PrefabUtil",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "IsPrefabProxy",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "PlayableRunner.MoneyPickupUIFx",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "EaseInQuad",
+                        "excluded": false
+                    },
+                    {
+                        "name": "EaseOutQuad",
+                        "excluded": false
+                    },
+                    {
+                        "name": "EaseOutCubic",
+                        "excluded": false
+                    },
+                    {
+                        "name": "init",
+                        "excluded": false
+                    },
+                    {
+                        "name": "Awake",
+                        "excluded": false
+                    },
+                    {
+                        "name": "Play",
+                        "excluded": false
+                    },
+                    {
+                        "name": "TryPlayPopup",
+                        "excluded": false
+                    },
+                    {
+                        "name": "SetRandomPopupText",
+                        "excluded": false
+                    },
+                    {
+                        "name": "PopupRoutine",
+                        "excluded": false
+                    },
+                    {
+                        "name": "TryPlayFly",
+                        "excluded": false
+                    },
+                    {
+                        "name": "FlyRoutine",
+                        "excluded": false
+                    },
+                    {
+                        "name": "InitPool",
+                        "excluded": false
+                    },
+                    {
+                        "name": "GetFreeIndex",
+                        "excluded": false
+                    },
+                    {
+                        "name": "WorldToFlyRootLocal",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "UnityEngine.Random",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "value#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "onUnitSphere#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "insideUnitSphere#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "state#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "state#set",
+                        "excluded": true
+                    },
+                    {
+                        "name": "insideUnitCircle#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "rotation#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "SpherePoint",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Range$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Range",
+                        "excluded": false
+                    },
+                    {
+                        "name": "InitState",
+                        "excluded": true
                     }
                 ]
             }
