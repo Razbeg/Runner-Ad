@@ -17,6 +17,8 @@ namespace PlayableRunner
         [SerializeField] private Transform finishLine;
         [SerializeField] private RunnerCharacter2D character;
         [SerializeField] private RunnerUI ui;
+        [SerializeField] private LunaLifecycleBridge luna;
+        [SerializeField] private PlayableAudioLoop audioLoop;
 
         [Header("Debug")]
         [SerializeField] private bool debugFastEnd;
@@ -37,6 +39,7 @@ namespace PlayableRunner
         {
             speed = 0f;
             lastT = Time.unscaledTime;
+            ui.CtaClicked += () => luna.ClickCta();
             EnterStart();
         }
 
@@ -118,6 +121,7 @@ namespace PlayableRunner
             ui.ShowJumpHint(false);
             speed = worldSpeed;
             character.SetRunning(true);
+            audioLoop.StartOnFirstTouch();
         }
 
         private void EnterTutorial()
@@ -176,6 +180,7 @@ namespace PlayableRunner
             character.SetRunning(false);
             ui.ShowFail(false);
             ui.ShowEndCard(true, !endedByFail, money);
+            luna.ReportGameEnded();
         }
 
 
