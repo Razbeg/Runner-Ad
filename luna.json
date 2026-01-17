@@ -165,7 +165,38 @@
         "genericCheck": true,
         "disableAntiAliasing": true,
         "forceStableRandomSeed": false,
-        "unusedModules": [],
+        "unusedModules": [
+            {
+                "name": "physics3d",
+                "excluded": false,
+                "forceIncluded": false
+            },
+            {
+                "name": "physics2d",
+                "excluded": false,
+                "forceIncluded": false
+            },
+            {
+                "name": "particle-system",
+                "excluded": false,
+                "forceIncluded": false
+            },
+            {
+                "name": "reflection",
+                "excluded": false,
+                "forceIncluded": false
+            },
+            {
+                "name": "prefabs",
+                "excluded": false,
+                "forceIncluded": false
+            },
+            {
+                "name": "mecanim-wasm",
+                "excluded": false,
+                "forceIncluded": false
+            }
+        ],
         "disableRuntimeAnalysisForCode": true,
         "disableRuntimeAnalysisForShaders": false,
         "useShadersCache": true,

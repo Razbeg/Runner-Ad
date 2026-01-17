@@ -23,6 +23,8 @@ namespace PlayableRunner
 
         public bool IsSimulating => state == RunnerGameState.Play;
         public float SimTime { get; private set; }
+        public float DeltaTime { get; private set; }
+
 
         private RunnerGameState state = RunnerGameState.Start;
         private float lastT, failT, speed;
@@ -42,6 +44,7 @@ namespace PlayableRunner
             var now = Time.unscaledTime;
             var dt = Mathf.Min(now - lastT, dtClamp);
             lastT = now;
+            DeltaTime = dt;
 
             if (LegacyTapInput.TapDown())
             {
