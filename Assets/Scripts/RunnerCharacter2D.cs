@@ -50,5 +50,11 @@ namespace PlayableRunner
             if (animator != null)
                 animator.SetBool("IsJump", !IsJump);
         }
+
+        public void PlayHurt()
+        {
+            if (animator != null)
+                animator.SetTrigger("Hurt");
+        }
     }
 }

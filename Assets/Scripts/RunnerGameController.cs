@@ -147,8 +147,11 @@ namespace PlayableRunner
             if (state == RunnerGameState.End || state == RunnerGameState.Fail)
                 return;
 
+            character.PlayHurt();
+
             hp = Mathf.Max(0, hp - 1);
             ui.SetHearts(hp);
+
             if (hp <= 0) 
                 EnterFail();
         }
