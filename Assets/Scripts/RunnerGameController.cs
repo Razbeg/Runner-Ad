@@ -1,0 +1,164 @@
+using UnityEngine;
+
+namespace PlayableRunner
+{
+    public sealed class RunnerGameController : MonoBehaviour
+    {
+        [Header("Tuning")]
+        [SerializeField] private float worldSpeed = 4.0f;
+        [SerializeField] private float dtClamp = 0.05f;
+        [SerializeField] private float tutorialStopDistance = 3.8f;
+        [SerializeField] private float failToEndDelay = 1.0f;
+
+        [Header("Refs")]
+        [SerializeField] private Transform worldRoot;
+        [SerializeField] private Transform player;
+        [SerializeField] private Transform firstObstacle;
+        [SerializeField] private Transform finishLine;
+        [SerializeField] private RunnerCharacter2D character;
+
+        [Header("Debug")]
+        [SerializeField] private bool debugFastEnd;
+
+        public bool IsSimulating => state == RunnerGameState.Play;
+        public float SimTime { get; private set; }
+
+        private RunnerGameState state = RunnerGameState.Start;
+        private float lastT, failT, speed;
+        private bool tutorialDone;
+        private int hp = 3;
+
+
+        private void Start()
+        {
+            speed = 0f;
+            lastT = Time.unscaledTime;
+            EnterStart();
+        }
+
+        private void Update()
+        {
+            var now = Time.unscaledTime;
+            var dt = Mathf.Min(now - lastT, dtClamp);
+            lastT = now;
+
+            if (LegacyTapInput.TapDown())
+            {
+                OnTap();
+            }
+
+            if (state == RunnerGameState.Play)
+            {
+                SimTime += dt;
+                worldRoot.position += Vector3.left * (speed * dt);
+
+                if (!tutorialDone && firstObstacle != null && (firstObstacle.position.x - player.position.x) < tutorialStopDistance)
+                {
+                    EnterTutorial();
+                }
+
+                if (debugFastEnd && SimTime > 3f)
+                {
+                    EnterEnd();
+                }
+                else if (finishLine != null && finishLine.position.x <= player.position.x + 0.25f)
+                {
+                    EnterEnd();
+                }
+            }
+            else if (state == RunnerGameState.Fail)
+            {
+                failT += dt;
+                if (failT >= failToEndDelay)
+                {
+                    EnterEnd();
+                }
+            }
+        }
+
+
+        private void OnTap()
+        {
+            if (state == RunnerGameState.Start)
+            {
+                EnterPlay();
+            }
+            else if (state == RunnerGameState.Tutorial)
+            {
+                character.Jump(); ExitTutorialToPlay();
+            }
+            else if (state == RunnerGameState.Play)
+            {
+                character.Jump();
+            }
+        }
+
+        private void EnterStart()
+        {
+            state = RunnerGameState.Start;
+            character.SetRunning(false);
+        }
+
+        private void EnterPlay()
+        {
+            state = RunnerGameState.Play;
+            speed = worldSpeed;
+            character.SetRunning(true);
+        }
+
+        private void EnterTutorial()
+        {
+            tutorialDone = true;
+            state = RunnerGameState.Tutorial;
+            speed = 0f;
+            character.SetRunning(false);
+        }
+
+        private void ExitTutorialToPlay()
+        {
+            state = RunnerGameState.Play;
+            speed = worldSpeed;
+            character.SetRunning(true);
+        }
+
+
+        public void NotifyObstacleHit()
+        {
+            if (state == RunnerGameState.End || state == RunnerGameState.Fail)
+                return;
+
+            hp = Mathf.Max(0, hp - 1);
+            if (hp <= 0) 
+                EnterFail();
+        }
+
+
+        private void EnterFail()
+        {
+            state = RunnerGameState.Fail;
+            speed = 0f;
+            failT = 0f;
+            character.SetRunning(false);
+        }
+
+        private void EnterEnd()
+        {
+            state = RunnerGameState.End;
+            speed = 0f;
+            character.SetRunning(false);
+        }
+
+
+        public void PauseFromLifecycle()
+        {
+            speed = 0f;
+        }
+
+        public void ResumeFromLifecycle()
+        {
+            lastT = Time.unscaledTime;
+            if (state == RunnerGameState.Play)
+                speed = worldSpeed;
+        }
+    }
+}
