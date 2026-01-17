@@ -16,6 +16,7 @@ namespace PlayableRunner
         [SerializeField] private Transform firstObstacle;
         [SerializeField] private Transform finishLine;
         [SerializeField] private RunnerCharacter2D character;
+        [SerializeField] private RunnerUI ui;
 
         [Header("Debug")]
         [SerializeField] private bool debugFastEnd;
@@ -26,7 +27,7 @@ namespace PlayableRunner
         private RunnerGameState state = RunnerGameState.Start;
         private float lastT, failT, speed;
         private bool tutorialDone;
-        private int hp = 3;
+        private int hp = 3, money;
 
 
         private void Start()
@@ -96,12 +97,20 @@ namespace PlayableRunner
         private void EnterStart()
         {
             state = RunnerGameState.Start;
+            ui.ShowStart(true);
+            ui.ShowJumpHint(false);
+            ui.ShowFail(false);
+            ui.ShowEndCard(false, 0);
+            ui.SetHearts(hp);
+            ui.SetBalance(money);
             character.SetRunning(false);
         }
 
         private void EnterPlay()
         {
             state = RunnerGameState.Play;
+            ui.ShowStart(false);
+            ui.ShowJumpHint(false);
             speed = worldSpeed;
             character.SetRunning(true);
         }
@@ -112,15 +121,23 @@ namespace PlayableRunner
             state = RunnerGameState.Tutorial;
             speed = 0f;
             character.SetRunning(false);
+            ui.ShowJumpHint(true);
         }
 
         private void ExitTutorialToPlay()
         {
+            ui.ShowJumpHint(false);
             state = RunnerGameState.Play;
             speed = worldSpeed;
             character.SetRunning(true);
         }
 
+
+        public void NotifyMoneyPickup(int amount)
+        {
+            money += amount;
+            ui.SetBalance(money);
+        }
 
         public void NotifyObstacleHit()
         {
@@ -128,6 +145,7 @@ namespace PlayableRunner
                 return;
 
             hp = Mathf.Max(0, hp - 1);
+            ui.SetHearts(hp);
             if (hp <= 0) 
                 EnterFail();
         }
@@ -139,6 +157,7 @@ namespace PlayableRunner
             speed = 0f;
             failT = 0f;
             character.SetRunning(false);
+            ui.ShowFail(true);
         }
 
         private void EnterEnd()
@@ -146,6 +165,8 @@ namespace PlayableRunner
             state = RunnerGameState.End;
             speed = 0f;
             character.SetRunning(false);
+            ui.ShowFail(false);
+            ui.ShowEndCard(true, Mathf.Max(99, money * 10));
         }
 
 
