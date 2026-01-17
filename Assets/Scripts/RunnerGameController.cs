@@ -30,6 +30,7 @@ namespace PlayableRunner
         private float lastT, failT, speed;
         private bool tutorialDone;
         private int hp = 3, money;
+        private bool endedByFail;
 
 
         private void Start()
@@ -100,10 +101,11 @@ namespace PlayableRunner
         private void EnterStart()
         {
             state = RunnerGameState.Start;
+            endedByFail = false;
             ui.ShowStart(true);
             ui.ShowJumpHint(false);
             ui.ShowFail(false);
-            ui.ShowEndCard(false, 0);
+            ui.ShowEndCard(false, endedByFail, 0);
             ui.SetHearts(hp);
             ui.SetBalance(money);
             character.SetRunning(false);
@@ -162,6 +164,7 @@ namespace PlayableRunner
             state = RunnerGameState.Fail;
             speed = 0f;
             failT = 0f;
+            endedByFail = true;
             character.SetRunning(false);
             ui.ShowFail(true);
         }
@@ -172,7 +175,7 @@ namespace PlayableRunner
             speed = 0f;
             character.SetRunning(false);
             ui.ShowFail(false);
-            ui.ShowEndCard(true, Mathf.Max(99, money * 10));
+            ui.ShowEndCard(true, !endedByFail, money);
         }
 
 
